@@ -12,4 +12,22 @@ describe("routes : static", () => {
             });
         });
     });
+
+    describe("GET /marco", () => {
+        it("should return status code 200", (done) => {
+            request.get('http://localhost:3000/marco', (err, res, body) => {
+                expect(res.statusCode).toBe(200);
+
+                done();
+            });
+        });
+
+        it("should return string 'polo", (done) => {
+            request.get('http://localhost:3000/marco', (err, res, body) => {
+                expect(body).toContain('polo');
+
+                done();
+            });
+        });
+    });
 });
