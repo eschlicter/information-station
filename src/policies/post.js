@@ -1,22 +1,25 @@
 const ApplicationPolicy = require("./application");
+
 module.exports = class PostPolicy extends ApplicationPolicy {
-    new() {
-        return this._isAdmin();
-    }
 
-    create() { 
-        return this.new();
-    }
+  new() {
+    return (this._isMember() || this._isAdmin());
+  }
 
-    edit() {
-        return this._isAdmin();
-    }
+  create() {
+    return this.new();
+  }
 
-    update(){
-        return this.edit();
-    }
+  edit() { 
+    return this.new() &&
+    this.record && (this._isOwner() || this._isAdmin());
+  }
 
-    destroy() {
-        return this.update();
-    }
+  update() {
+    return this.edit();
+  }
+
+  destroy() {
+    return this.update();
+  }
 }
