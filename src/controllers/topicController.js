@@ -30,9 +30,9 @@ module.exports = {
 
     create(req, res, next){
 
-          // const authorized = new Authorizer(req.user).create();
+          const authorized = new Authorizer(req.user).create();
      
-          // if(authorized) {
+          if(authorized) {
             let newTopic = {
               title: req.body.title,
               description: req.body.description
@@ -44,11 +44,11 @@ module.exports = {
                 res.redirect(303, `/topics/${topic.id}`);
               }
             });
-          // } else {
+          } else {
      
-          //   req.flash("notice", "You are not authorized to do that.");
-          //   res.redirect("/topics");
-          // }
+            req.flash("notice", "You are not authorized to do that.");
+            res.redirect("/topics");
+          }
         },
 
     show(req, res, next){
